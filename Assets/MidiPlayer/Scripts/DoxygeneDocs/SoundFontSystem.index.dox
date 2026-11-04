@@ -1,0 +1,49 @@
+/** @page soundfont_system SoundFont System Overview
+ *  @brief Overview of SoundFont management in Maestro MPTK.
+ *
+ *  @details
+ *  The SoundFont system defines the samples, banks, and presets used by
+ *  the synthesizer to render MIDI playback.
+ *
+ *  SoundFonts can be:
+ *  - provided by the internal MPTK database,
+ *  - loaded from a local file,
+ *  - downloaded dynamically from a remote server.
+ *
+ *  This system also exposes banks and presets so applications can:
+ *  - build instrument-selection user interfaces,
+ *  - inspect the structure of the active SoundFont,
+ *  - prepare MIDI bank and preset changes.
+ *
+ *  @section soundfont_start Quick Start
+ *
+ *  @code
+ *  midiSynth.MPTK_SoundFont.LoadedCallback = synth =>
+ *  {
+ *      Debug.Log($"SoundFont ready: {synth.MPTK_SoundFont.SoundFontName}");
+ *  };
+ *
+ *  midiSynth.MPTK_SoundFont.Load("https://example.com/MySoundFont.sf2");
+ *  @endcode
+ *
+ *  @section soundfont_pages Related Pages
+ *
+ *  Read these pages in the following order:
+ *
+ *  - @subpage soundfont_overview
+ *  - @subpage soundfont_runtime_loading
+ *  - @subpage soundfont_banks_presets
+ *  - @subpage soundfont_best_practices
+ *
+ *  @section soundfont_modules Related Modules
+ *
+ *  - @ref audio_resources
+ *  - @ref soundfont_management
+ *  - @ref synth_engine
+ *
+ *  @section soundfont_next Next Steps
+ *
+ *  - @ref getting_started
+ *  - @ref detailed_guides
+ *  - @ref soundfont_management_hub
+ */

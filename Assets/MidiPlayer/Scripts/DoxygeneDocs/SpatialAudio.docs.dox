@@ -1,0 +1,39 @@
+/** @defgroup synth_spatial_audio Spatial Audio and Attenuation
+ *  @ingroup synth_engine
+ *  @brief Orientation- and distance-based spatial controls on MidiSynth.
+ *
+ *  @details
+ *  This module covers real-time 3D orientation and distance attenuation APIs on
+ *  @ref MidiPlayerTK.MidiSynth "MidiSynth", including listener-relative angle
+ *  tracking, front/back behavior, and distance rolloff helpers.
+ */
+
+/** @page mptk_spatial_audio_workflow Add 3D Orientation and Attenuation
+ *  @ingroup synth_spatial_audio
+ *  @brief Configure orientation and distance behavior for MIDI playback in 3D scenes.
+ *
+ *  @details
+ *  Maestro MPTK provides two complementary spatial controls:
+ *  - <b>Orientation processing</b> with @ref MidiPlayerTK.MidiSynth.MPTK_Orientation "MPTK_Orientation"
+ *    for listener-relative left/right and front/back behavior.
+ *  - <b>Distance attenuation</b> with @ref MidiPlayerTK.MidiSynth.MPTK_DistanceAttenuation "MPTK_DistanceAttenuation"
+ *    and related min/max attenuation parameters.
+ *
+ *  @section spatial_orientation Orientation Features
+ *  - Enable @ref MidiPlayerTK.MidiSynth.MPTK_Orientation "MPTK_Orientation" to activate orientation-based spatial behavior.
+ *  - Read @ref MidiPlayerTK.MidiSynth.MPTK_OrientationToListener "MPTK_OrientationToListener" to get the signed listener-relative angle.
+ *  - Use @ref MidiPlayerTK.MidiSynth.MPTK_PauseOnMaxDistance "MPTK_PauseOnMaxDistance" to pause when the listener is beyond max distance.
+ *
+ *  @section spatial_distance Distance Attenuation Features
+ *  - Enable @ref MidiPlayerTK.MidiSynth.MPTK_DistanceAttenuation "MPTK_DistanceAttenuation".
+ *  - Configure @ref MidiPlayerTK.MidiSynth.MPTK_MinDistance "MPTK_MinDistance" and @ref MidiPlayerTK.MidiSynth.MPTK_MaxDistance "MPTK_MaxDistance".
+ *  - Set @ref MidiPlayerTK.MidiSynth.MPTK_MinSoundAttenuation "MPTK_MinSoundAttenuation" to define minimum gain at max distance.
+ *
+ *  @section spatial_notes Notes
+ *  - Orientation and distance controls can be combined.
+ *  - These features are intended for immersive in-scene MIDI playback and gameplay-driven audio.
+ *
+ *  @see @ref synth_spatial_audio
+ *  @see @ref mptk_synth_overview
+ *  @see @ref maestro_pro_features
+ */

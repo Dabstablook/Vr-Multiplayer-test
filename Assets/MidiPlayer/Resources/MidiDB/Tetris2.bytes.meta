@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2d4d868453a57d443ac2875e8c6ca6ba
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Tetris2.bytes
+  uploadId: 979214

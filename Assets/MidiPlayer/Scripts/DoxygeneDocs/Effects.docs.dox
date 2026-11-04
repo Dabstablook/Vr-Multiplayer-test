@@ -1,0 +1,58 @@
+/** @defgroup effects_processing Effects Processing
+ *  @brief Audio effect modules for MidiSynth output and SoundFont voice processing.
+ *
+ *  @details
+ *  Maestro MPTK provides two complementary effect families:
+ *  - @ref soundfont_effects: per-voice SoundFont/FluidSynth-based effects.
+ *  - @ref unity_effects: whole-player Unity AudioSource effects.
+ */
+
+/** @defgroup soundfont_effects SoundFont Effects
+ *  @ingroup effects_processing
+ *  @brief Per-voice effects derived from SoundFont/FluidSynth processing.
+ *
+ *  @details
+ *  These effects are evaluated per voice and follow SoundFont behavior, with MPTK
+ *  runtime offsets and controls for filter/reverb/chorus parameters.
+ */
+
+/** @defgroup unity_effects Unity Effects
+ *  @ingroup effects_processing
+ *  @brief Whole-player Unity AudioSource effects (Reverb and Chorus).
+ *
+ *  @details
+ *  These effects apply at the AudioSource level and affect the full player output.
+ */
+
+/** @page sound_effects_workflow Add Sound Effects
+ *  @brief Choose and configure SoundFont effects or Unity effects in Maestro MPTK.
+ *
+ *  @details
+ *  Two effect paths are available:
+ *  - <b>SoundFont effects</b>: per-voice processing, based on FluidSynth modules.
+ *  - <b>Unity effects</b>: player-wide effects on the AudioSource output.
+ *
+ *  @section fx_choose Choose the Effect Path
+ *  - Use @ref soundfont_effects when you need per-voice SoundFont-style behavior.
+ *  - Use @ref unity_effects when you want global output shaping on the whole player.
+ *
+ *  @section fx_soundfont SoundFont Effects Workflow
+ *  1. Enable SoundFont effects on @ref MidiPlayerTK.MPTKEffectSoundFont "MPTK_EffectSoundFont".
+ *  2. Configure filter/reverb/chorus offsets and defaults.
+ *  3. Validate CPU impact because these effects run per voice.
+ *
+ *  @section fx_unity Unity Effects Workflow
+ *  1. Enable effects on @ref MidiPlayerTK.MPTKEffectUnity "MPTK_EffectUnity".
+ *  2. Configure Reverb and Chorus parameters.
+ *  3. Tune values in context of the full mix.
+ *
+ *  @section fx_api Related API
+ *  - @ref soundfont_effects
+ *  - @ref unity_effects
+ *  - @ref effects_processing
+ *  - @ref synth_engine
+ *  - @ref maestro_pro_features
+ *
+ *  @see MidiPlayerTK.MPTKEffectSoundFont
+ *  @see MidiPlayerTK.MPTKEffectUnity
+ */

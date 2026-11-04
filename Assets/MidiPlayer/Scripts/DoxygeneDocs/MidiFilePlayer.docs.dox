@@ -1,0 +1,273 @@
+/** @defgroup playback_and_sequencing Playback and Sequencing from MIDI Files
+ *  @brief APIs used to load, control, and monitor MIDI playback.
+ *
+ *  @details
+ *  This category contains the high-level playback components of Maestro MPTK.
+ *  These APIs are responsible for selecting MIDI content, starting and stopping
+ *  playback, controlling playback position and speed, and reacting to musical events.
+ *  For setup guidance on adding MIDI files, see
+ *  https://paxstellar.fr/setup-mptk-add-midi-files-v2/
+ *  https://paxstellar.fr/midi-file-player-detailed-view-2/
+*/
+
+/** @defgroup midifileplayer_management MidiFilePlayer
+ *  @brief High-level MIDI-file playback with transport, timing, loading, and callback APIs.
+ *
+ *  @details
+ *  MidiFilePlayer is the most user-facing playback component in Maestro MPTK.
+ *  It is designed to play complete MIDI files through the MidiFilePlayer prefab
+ *  and exposes a practical API for both inspector-driven workflows and script-based control.
+ *
+ *  With MidiFilePlayer, you can:
+ *  - select a MIDI by name or index from the MidiDB,
+ *  - preload a MIDI and inspect its events before playback,
+ *  - play, stop, pause, resume, restart, or loop playback,
+ *  - jump to a position by time or by tick,
+ *  - inspect timing information such as duration, pulse, play time, and real time,
+ *  - react to playback lifecycle events and groups of MIDI events,
+ *  - in Maestro Pro, load external MIDI files, play from byte arrays or generated MIDI writers,
+ *    and use inner loop / delayed transition features.
+ *
+ *  MidiFilePlayer builds on MidiSynth. The class focuses on MIDI-file playback features,
+ *  while synthesis, channel control, and sound rendering options remain available
+ *  through the inherited MidiSynth API.
+ *
+ *  Recommended reading order:
+ *  1. @ref midifileplayer_overview
+ *  2. @ref midifileplayer_loading
+ *  3. @ref midifileplayer_playback
+ *  4. @ref midifileplayer_position
+ *  5. @ref midifileplayer_events
+ *  6. @ref mptkinnerloop_concept
+ *  7. @ref midifileplayer_pro
+ *  8. @ref mptkwriter_concept
+ *
+ *  @note
+ *  - Many advanced scenarios rely on MPTK_MidiLoaded, which exposes detailed information about the currently loaded MIDI. 
+ *    Always check that MPTK_MidiLoaded is not null before using its properties.
+ *  - For setup guidance on adding MIDI files, see https://paxstellar.fr/setup-mptk-add-midi-files-v2/
+ *
+ *  @see @ref midifileplayer_overview
+ *  @see @ref midifileplayer_loading
+ *  @see @ref midifileplayer_playback
+ *  @see @ref midifileplayer_position
+ *  @see @ref midifileplayer_events
+ *  @see @ref mptkinnerloop_concept
+ *  @see @ref midifileplayer_pro
+ *  @see @ref mptkwriter_concept
+ */
+
+/** @defgroup midifileplayer_selection MIDI Selection
+ *  @ingroup midifileplayer_management
+ *  @brief Select which MIDI file will be played.
+ */
+
+/** @defgroup midifileplayer_playback_controls Playback Controls
+ *  @ingroup midifileplayer_management
+ *  @brief Start, stop, pause, resume, replay, and sequence MIDI playback.
+ */
+
+/** @defgroup midifileplayer_positioning Position, Duration, and Timing
+ *  @ingroup midifileplayer_management
+ *  @brief Query and control playback position, timing, duration, and speed.
+ */
+
+/** @defgroup midifileplayer_loading MIDI Loading and Event Reading
+ *  @ingroup midifileplayer_management
+ *  @brief Load MIDI content and inspect its event data before or during playback.
+ */
+
+/** @defgroup midifileplayer_events Playback Events and Callbacks
+ *  @ingroup midifileplayer_management
+ *  @brief React to playback start, end, and groups of MIDI events.
+ */
+
+/** @defgroup midifileplayer_channels MIDI Channels
+ *  @ingroup midifileplayer_management
+ *  @brief Access the 16 MIDI channels managed by the player.
+ */
+
+/** @defgroup midifileplayer_pro Maestro Pro Extensions
+ *  @ingroup midifileplayer_management
+ *  @brief Extended loading, looping, and transition features available in Maestro Pro.
+ */
+
+/** @page midifileplayer_overview MidiFilePlayer Overview
+ *  @brief Understand the role of MidiFilePlayer in Maestro MPTK.
+ *
+ *  @details
+ *  MidiFilePlayer is the high-level component used to play complete MIDI files with the
+ *  MidiFilePlayer prefab. It is suitable for simple playback driven entirely from the inspector,
+ *  but it also exposes a scripting API for interactive and gameplay-oriented scenarios.
+ *
+ *  Typical use cases include:
+ *  - selecting a MIDI by name or index,
+ *  - playing or looping a track,
+ *  - changing speed,
+ *  - seeking by time or by tick,
+ *  - receiving callbacks at start, end, or on groups of MIDI events,
+ *  - preloading a MIDI to inspect or modify its events before playback.
+ *
+ *  MidiFilePlayer inherits from MidiSynth, so playback-oriented features are documented here,
+ *  while sound generation and channel processing are inherited from MidiSynth.
+ *
+ *  @section mfp_overview_quick_start Quick Start
+ *  - Add the MidiFilePlayer prefab to the scene.
+ *  - Choose a MIDI from the MidiDB (name or index).
+ *  - Call @ref MidiPlayerTK.MidiFilePlayer.MPTK_Play "MPTK_Play()".
+ *
+ *  @section mfp_overview_when_to_use When to Use MidiFilePlayer
+ *  Prefer MidiFilePlayer when:
+ *  - you play complete songs from MIDI files,
+ *  - transport controls (play/pause/seek/loop) are central,
+ *  - timeline information is needed for UI or gameplay synchronization.
+ *
+ *  @see @ref midifileplayer_management
+ *  @see @ref midifileplayer_loading
+ *  @see @ref midifileplayer_playback
+ */
+
+/** @page midifileplayer_loading Loading and Inspecting MIDI Content
+ *  @brief Load MIDI files and inspect their event data.
+ *
+ *  @details
+ *  MidiFilePlayer can load MIDI content before playback so that your application can inspect,
+ *  filter, or alter the event stream.
+ *
+ *  @section mfp_loading_workflow Typical Workflow
+ *  - select a MIDI with MPTK_MidiName or MPTK_MidiIndex,
+ *  - call @ref MidiPlayerTK.MidiFilePlayer.MPTK_Load "MPTK_Load()",
+ *  - inspect @ref MidiPlayerTK.MidiFilePlayer.MPTK_MidiLoaded "MPTK_MidiLoaded",
+ *  - optionally read events with @ref MidiPlayerTK.MidiFilePlayer.MPTK_ReadMidiEvents "MPTK_ReadMidiEvents()",
+ *  - then call @ref MidiPlayerTK.MidiFilePlayer.MPTK_Play "MPTK_Play(alreadyLoaded: true)".
+ *
+ *  @section mfp_loading_pro Pro Sources
+ *  Maestro Pro also adds:
+ *  - loading from a desktop file path,
+ *  - playing from a byte array,
+ *  - playing from a MPTKWriter object.
+ *
+ *  For script-based MIDI authoring, see @ref mptkwriter_concept.
+ *
+ *  @section mfp_loading_note Important Note
+ *  Always check that @ref MidiPlayerTK.MidiFilePlayer.MPTK_MidiLoaded "MPTK_MidiLoaded"
+ *  is not null before reading loaded MIDI information.
+ *
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Load
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_ReadMidiEvents
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_MidiLoaded
+ *  @see @ref mptkwriter_concept
+ */
+
+/** @page midifileplayer_playback Playback Control Workflow
+ *  @brief Control playback start, stop, pause, restart, and track navigation.
+ *
+ *  @details
+ *  MidiFilePlayer provides a compact API for transport control.
+ *
+ *  @section mfp_playback_transport Transport Controls
+ *  Common operations:
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Play "MPTK_Play()" starts playback,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Stop "MPTK_Stop()" stops playback,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Pause "MPTK_Pause()" pauses playback,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_UnPause "MPTK_UnPause()" resumes playback,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_RePlay "MPTK_RePlay()" restarts the current MIDI,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Next "MPTK_Next()" and @ref MidiPlayerTK.MidiFilePlayer.MPTK_Previous "MPTK_Previous()" navigate the MidiDB list.
+ *
+ *  @section mfp_playback_options Playback Options
+ *  Additional options allow starting at the first note, stopping on the last note,
+ *  auto-restarting, and controlling how playback stops relative to voice release/end.
+ *
+ *  @section mfp_playback_common_mistakes Common Mistakes
+ *  - Calling play before MIDI selection/loading is valid.
+ *  - Assuming stop behavior ignores release tails without checking stop options.
+ *  - Mixing timeline-based logic with random next/previous navigation without state tracking.
+ *
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Play
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Stop
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Pause
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_UnPause
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_RePlay
+ */
+
+/** @page midifileplayer_position Position and Timing
+ *  @brief Work with playback position, ticks, duration, and speed.
+ *
+ *  @details
+ *  MidiFilePlayer exposes both musical and real-time representations of playback.
+ *
+ *  @section mfp_position_time_models Time Models
+ *  Use:
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Position "MPTK_Position" for time-based seeking in milliseconds,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_TickCurrent "MPTK_TickCurrent" for tick-based seeking,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Duration "MPTK_Duration" and @ref MidiPlayerTK.MidiFilePlayer.MPTK_DurationMS "MPTK_DurationMS" for total duration,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_PlayTime "MPTK_PlayTime" and @ref MidiPlayerTK.MidiFilePlayer.MPTK_RealTime "MPTK_RealTime" for elapsed playback time,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Pulse "MPTK_Pulse" and @ref MidiPlayerTK.MidiFilePlayer.MPTK_DeltaTicksPerQuarterNote "MPTK_DeltaTicksPerQuarterNote" for timing analysis,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.MPTK_Speed "MPTK_Speed" to accelerate or slow down playback.
+ *
+ *  This separation is useful when your application mixes musical timing,
+ *  UI displays, and gameplay synchronization.
+ *
+ *  @section mfp_position_best_practices Best Practices
+ *  - Use ticks for musical-grid logic.
+ *  - Use milliseconds for UI clocks and user-facing displays.
+ *  - Apply @ref MidiPlayerTK.MidiFilePlayer.MPTK_Speed "MPTK_Speed" carefully when synchronizing external systems.
+ *
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Position
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_TickCurrent
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Duration
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Speed
+ */
+
+/** @page midifileplayer_events Playback Events and Unity Callbacks
+ *  @brief React to playback start, end, and MIDI event groups.
+ *
+ *  @details
+ *  MidiFilePlayer exposes Unity events that let your application react to playback state changes
+ *  and to groups of MIDI events as they are about to be played.
+ *
+ *  @section mfp_events_callbacks Main Callbacks
+ *  - @ref MidiPlayerTK.MidiFilePlayer.OnEventStartPlayMidi "OnEventStartPlayMidi": fired when playback is initialized and ready to begin,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.OnEventEndPlayMidi "OnEventEndPlayMidi": fired when playback ends or stops for a specific reason,
+ *  - @ref MidiPlayerTK.MidiFilePlayer.OnEventNotesMidi "OnEventNotesMidi": fired for groups of MIDI events on the same tick.
+ *
+ *  @section mfp_events_use_cases Typical Use Cases
+ *  These hooks are especially useful for gameplay synchronization, visualization,
+ *  and runtime interaction with the MIDI stream.
+ *
+ *  @see MidiPlayerTK.MidiFilePlayer.OnEventStartPlayMidi
+ *  @see MidiPlayerTK.MidiFilePlayer.OnEventEndPlayMidi
+ *  @see MidiPlayerTK.MidiFilePlayer.OnEventNotesMidi
+ */
+
+/** @page midifileplayer_pro MidiFilePlayer Pro Extensions
+ *  @brief Extended playback, loading, and looping options available in Maestro Pro.
+ *
+ *  @details
+ *  Maestro Pro extends MidiFilePlayer with advanced workflows such as:
+ *  - inner-loop control,
+ *  - dedicated inner-loop workflow guide: @ref mptkinnerloop_concept,
+ *  - loading MIDI files from local desktop paths,
+ *  - playing from byte arrays,
+ *  - playing from MPTKWriter-generated data,
+ *  - delayed transitions, fade-in, fade-out, and indexed navigation helpers.
+ *
+ *  @section mfp_pro_external External MIDI Sources
+ *  - Local file playback (desktop path): use @ref MidiPlayerTK.MidiFilePlayer.MPTK_Load "MPTK_Load(string uri)" and then @ref MidiPlayerTK.MidiFilePlayer.MPTK_Play "MPTK_Play(alreadyLoaded: true)".
+ *  - Web URL playback (`http://` / `https://`) and `file://` URI playback: use @ref MidiPlayerTK.MidiExternalPlayer "MidiExternalPlayer" (Pro), which is dedicated to external MIDI URIs.
+ *
+ *  @section mfp_pro_usage Typical Pro Usage
+ *  These additions are useful for:
+ *  - dynamic in-game music transitions,
+ *  - external user-provided MIDI content (local files and web-hosted MIDI),
+ *  - generated MIDI playback pipelines.
+ *
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_InnerLoop
+ *  @see @ref mptkinnerloop_concept
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Load
+ *  @see MidiPlayerTK.MidiExternalPlayer
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_Play
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_SwitchMidiWithDelay
+ *  @see @ref maestro_pro_features
+ *  @see @ref mptkwriter_concept
+ */

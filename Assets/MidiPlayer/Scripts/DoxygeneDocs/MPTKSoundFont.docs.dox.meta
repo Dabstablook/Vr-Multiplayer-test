@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 13fd37d59fe92dc45bcdc6fcacd97a35
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Scripts/DoxygeneDocs/MPTKSoundFont.docs.dox
+  uploadId: 979214

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9876d240c32cf4d46ba5931a586d7584
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Void World's 2nd Half.bytes
+  uploadId: 979214

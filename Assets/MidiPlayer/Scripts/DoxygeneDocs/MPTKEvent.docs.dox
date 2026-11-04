@@ -1,0 +1,74 @@
+/** @page mptkevent_concept MPTKEvent Concept and Data Model
+ *  @brief Understand what MPTKEvent represents and how to use it in playback workflows.
+ *
+ *  @details
+ *  @ref MidiPlayerTK.MPTKEvent "MPTKEvent" is the central runtime MIDI message object in Maestro MPTK.
+ *  It represents one MIDI event (note, controller, patch change, meta event, etc.)
+ *  and is used by both file-based and real-time playback systems.
+ *
+ *  In practice:
+ *  - MidiFilePlayer reads and emits lists of MPTKEvent.
+ *  - MidiStreamPlayer plays MPTKEvent instances created at runtime.
+ *  - MPTKWriter and related APIs generate MIDI content through MPTKEvent-compatible data.
+ *
+ *  @section mptkevent_model Core Model
+ *
+ *  The event type is defined by @ref MidiPlayerTK.MPTKEvent.Command "Command".
+ *  Other fields are interpreted from that command:
+ *  - @ref MidiPlayerTK.MPTKEvent.Value "Value": note number, controller value, patch index, tempo/signature packed data, etc.
+ *  - @ref MidiPlayerTK.MPTKEvent.Channel "Channel": MIDI channel (0 to 15).
+ *  - @ref MidiPlayerTK.MPTKEvent.Velocity "Velocity": mainly for note on/off events.
+ *  - @ref MidiPlayerTK.MPTKEvent.Duration "Duration": note length in milliseconds for NoteOn events.
+ *  - @ref MidiPlayerTK.MPTKEvent.Controller "Controller": controller type for ControlChange.
+ *  - @ref MidiPlayerTK.MPTKEvent.Meta "Meta" and @ref MidiPlayerTK.MPTKEvent.Info "Info": meta-event subtype and text data.
+ *
+ *  Related enums:
+ *  - @ref MidiPlayerTK.MPTKCommand
+ *  - @ref MidiPlayerTK.MPTKController
+ *  - @ref MidiPlayerTK.MPTKMeta
+ *
+ *  @section mptkevent_runtime Typical Runtime Usage
+ *
+ *  A common real-time workflow is:
+ *  - create a new MPTKEvent,
+ *  - set Command and required message data,
+ *  - send it with @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent()",
+ *  - optionally stop a sustained note with @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StopEvent "MPTK_StopEvent()".
+ *
+ *  @code
+ *  // Play C4 on channel 0 for 500 ms
+ *  MPTKEvent e = new MPTKEvent()
+ *  {
+ *      Command = MPTKCommand.NoteOn,
+ *      Value = 60,
+ *      Velocity = 100,
+ *      Channel = 0,
+ *      Duration = 500
+ *  };
+ *  midiStreamPlayer.MPTK_PlayEvent(e);
+ *  @endcode
+ *
+ *  @section mptkevent_timing Timing and Context
+ *
+ *  MPTKEvent also stores timeline and runtime context information:
+ *  - musical position: Tick, Measure, Beat,
+ *  - real-time position: RealTime,
+ *  - session/source context: IdSession, Source,
+ *  - attached active voices: Voices, and completion state: IsOver.
+ *
+ *  These fields are useful for diagnostics, filtering, editor tools, and
+ *  synchronization logic around playback.
+ *
+ *  @section mptkevent_pro Maestro Pro Extension
+ *
+ *  In Maestro Pro, MPTKEvent adds per-event SoundFont generator controls
+ *  (real-time timbre changes):
+ *  - @ref MidiPlayerTK.MPTKEvent.ModifySynthParameter "ModifySynthParameter()",
+ *  - @ref MidiPlayerTK.MPTKEvent.ClearSynthParameter "ClearSynthParameter()",
+ *  - generator query helpers (default/current value, labels, generator list).
+ *
+ *  @see @ref midistreamplayer_realtime
+ *  @see MidiPlayerTK.MPTKEvent
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_ReadMidiEvents
+ */

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dd594045134d43f4ba36511955f24b98
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chart: {instanceID: 0}
+  - music: {instanceID: 0}
+  - resultsText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,77 @@
+/** @defgroup synth_engine Synth Engine (MidiSynth)
+ *  @brief Core sample-based SoundFont synthesizer shared by all Maestro MPTK prefabs.
+ *
+ *  @details
+ *  MidiSynth is the shared sample-based SoundFont synthesizer (C# port/adaptation of FluidSynth)
+ *  used by all playback prefabs. It loads a SoundFont, receives MIDI events, allocates voices,
+ *  applies SoundFont or Unity effects, and renders audio frames.
+ *
+ *  The adaptation includes:
+ *  - integration with Unity audio processing and AudioSource-based playback,
+ *  - runtime synchronization with Unity lifecycle and threading constraints,
+ *  - real-time MPTK extensions for synth behavior, event preprocessing, and live control.
+ *
+ *  Runtime players such as MidiFilePlayer, MidiStreamPlayer, MidiInReader, MidiListPlayer,
+ *  and MidiExternalPlayer all inherit from MidiSynth, so they share the same audio engine
+ *  and configuration surface.
+ *
+ *  Key topics:
+ *  - @ref mptk_synth_overview (concept and lifecycle)
+ *  - @ref mptk_spatial_audio_workflow (orientation and attenuation workflow)
+ *  - @ref maestro_pro_features (Maestro Pro features, including MidiSynth extensions)
+ *  - SoundFont management: @ref soundfont_management_hub
+ */
+
+/** @defgroup synth_engine_core Core Synth Concepts
+ *  @ingroup synth_engine
+ *  @brief Core behavior, lifecycle, and shared architecture of MidiSynth.
+ */
+
+/** @defgroup synth_engine_runtime Runtime Control and Performance
+ *  @ingroup synth_engine
+ *  @brief Runtime tuning, threading, buffering, and audio-side controls.
+ */
+
+/** @defgroup synth_engine_pro Pro Runtime Extensions
+ *  @ingroup synth_engine
+ *  @brief Maestro Pro real-time callbacks and advanced synth routing features.
+ */
+
+/** @page mptk_synth_overview MPTK Synth Overview
+ *  @ingroup synth_engine_core
+ *  @brief Core concept and lifecycle of the shared synthesizer.
+ *
+ *  @section mptk_synth_core Core Concept
+ *  - MidiSynth is the shared sample-based SoundFont synthesizer (C# port/adaptation of FluidSynth) used by all playback prefabs.
+ *  - Classes such as @ref MidiPlayerTK.MidiFilePlayer , @ref MidiPlayerTK.MidiStreamPlayer , @ref MidiPlayerTK.MidiInReader , @ref MidiPlayerTK.MidiListPlayer , and @ref MidiPlayerTK.MidiExternalPlayer inherit MidiSynth, exposing its properties and methods.
+ *  - The synth loads a SoundFont, processes MIDI events, allocates voices, applies SoundFont or Unity effects, and renders audio.
+ *
+ *  @section mptk_synth_adaptation FluidSynth Heritage and Unity Adaptation
+ *  - The DSP and SoundFont synthesis model originates from FluidSynth and is adapted in C# for Maestro MPTK.
+ *  - Audio rendering is integrated with Unity playback flow, including AudioSource-compatible usage.
+ *  - MIDI scheduling and audio processing are coordinated with Unity runtime constraints.
+ *  - MPTK adds real-time control extensions for interactive and gameplay-driven music systems.
+ *
+ *  @section mptk_synth_use Accessing Synth Features
+ *  - Common properties: @ref MidiPlayerTK.MPTK_Volume "MPTK_Volume" , @ref MidiPlayerTK.MPTK_Transpose "MPTK_Transpose" , @ref MidiPlayerTK.MPTK_SynthRate "MPTK_SynthRate".
+ *  - Reinitialize channels/modulators when swapping SoundFonts: @ref MidiPlayerTK.MidiSynth.MPTK_InitSynth .
+ *  - Performance tuning: @ref MidiPlayerTK.MidiSynth.MPTK_ThreadMidiPriority , @ref MidiPlayerTK.MidiSynth.MPTK_ThreadMidiWait , @ref MidiPlayerTK.MidiSynth.MPTK_AutoBuffer .
+ *
+ *  @par Related runtime module
+ *  - @ref synth_engine_runtime
+ *
+ *  @section mptk_synth_lifecycle Lifecycle
+ *  1. Prefab loads and creates a MidiSynth instance.
+ *  2. @ref MidiPlayerTK.MidiSynth.MPTK_InitSynth prepares channels, voices, and modulators.
+ *  3. MIDI sequencer feeds events (file, stream, or external input).
+ *  4. Voices are rendered in OnAudioFilterRead; statistics available via fields such as @ref MidiPlayerTK.MidiSynth.StatAudioFilterReadMS .
+ *
+ *  @section mptk_synth_links Related Topics
+ *  - Maestro Pro additions: @ref maestro_pro_features
+ *  - Pro runtime module: @ref synth_engine_pro
+ *  - Spatial audio module: @ref synth_spatial_audio
+ *  - Spatial workflow: @ref mptk_spatial_audio_workflow
+ *  - SoundFont management: @ref soundfont_management_hub
+ *  - Audio settings and latency: @ref MidiPlayerTK.MidiSynth (Audio Settings section in class docs)
+ */
+

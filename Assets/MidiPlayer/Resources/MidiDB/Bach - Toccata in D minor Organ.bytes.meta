@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c5cf9844374e4d143b8cb11a9c3186b0
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Bach - Toccata in D minor Organ.bytes
+  uploadId: 979214

@@ -1,0 +1,57 @@
+/** @page mptkchannels_concept MPTKChannels and MPTKChannel Concepts
+ *  @brief Understand channel collection vs. per-channel runtime state in Maestro MPTK.
+ *
+ *  @details
+ *  The source file @ref MidiPlayerTK.MPTKChannels "MPTKChannels.cs" defines two complementary classes:
+ *  - @ref MidiPlayerTK.MPTKChannels "MPTKChannels": a collection that owns all synth channels.
+ *  - @ref MidiPlayerTK.MPTKChannel "MPTKChannel": the runtime state of one channel.
+ *
+ *  Together they expose the channel model used by MPTK playback systems.
+ *
+ *  @section mptkchannels_midi_context MIDI Channel Context
+ *
+ *  Standard MIDI defines 16 channels per port.
+ *  In MPTK, channel indices are zero-based (0 to 15).
+ *  General MIDI conventionally uses channel 9 (10 in 1-based notation) for percussion.
+ *
+ *  @section mptkchannels_role_collection Role of MPTKChannels
+ *
+ *  @ref MidiPlayerTK.MPTKChannels "MPTKChannels" is the container and entry point for channel-level operations:
+ *  - index access to a specific channel with @ref MidiPlayerTK.MPTKChannels.this[int] "this[int]",
+ *  - global channel toggles such as @ref MidiPlayerTK.MPTKChannels.EnableAll "EnableAll",
+ *  - global channel gain with @ref MidiPlayerTK.MPTKChannels.VolumeAll "VolumeAll",
+ *  - extension-state reset with @ref MidiPlayerTK.MPTKChannels.ResetExtension "ResetExtension()".
+ *
+ *  This class is mainly used when you need to inspect or configure channels as a group.
+ *
+ *  @section mptkchannels_role_single Role of MPTKChannel
+ *
+ *  @ref MidiPlayerTK.MPTKChannel "MPTKChannel" stores and applies one channel's playback state:
+ *  - channel identity (@ref MidiPlayerTK.MPTKChannel.Channel "Channel"),
+ *  - mute state and gain (@ref MidiPlayerTK.MPTKChannel.Enable "Enable", @ref MidiPlayerTK.MPTKChannel.Volume "Volume"),
+ *  - instrument selection (@ref MidiPlayerTK.MPTKChannel.PresetNum "PresetNum", @ref MidiPlayerTK.MPTKChannel.BankNum "BankNum"),
+ *  - override controls (@ref MidiPlayerTK.MPTKChannel.ForcedPreset "ForcedPreset", @ref MidiPlayerTK.MPTKChannel.ForcedBank "ForcedBank"),
+ *  - controller values through @ref MidiPlayerTK.MPTKChannel.Controller "Controller()".
+ *
+ *  This class is used when you need per-instrument/per-part behavior.
+ *
+ *  @section mptkchannels_relationship How Both Classes Work Together
+ *
+ *  Typical flow:
+ *  - get a channel from @ref MidiPlayerTK.MPTKChannels "MPTKChannels",
+ *  - update its per-channel state on @ref MidiPlayerTK.MPTKChannel "MPTKChannel",
+ *  - optionally apply broad changes through the collection for all channels.
+ *
+ *  @code
+ *  // Example: configure channel 0, mute channel 9, then lower all channels.
+ *  MPTKChannels channels = midiPlayer.MPTK_Channels;
+ *  channels[0].PresetNum = 40;
+ *  channels[9].Enable = false;
+ *  channels.VolumeAll = 0.8f;
+ *  @endcode
+ *
+ *  @see MidiPlayerTK.MPTKChannels
+ *  @see MidiPlayerTK.MPTKChannel
+ *  @see @ref midifileplayer_overview
+ *  @see @ref midistreamplayer_overview
+ */

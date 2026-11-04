@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7499779ef598ce34a81df0431f86c0af
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Scripts/DoxygeneDocs/MPTKWriter.docs.dox
+  uploadId: 979214

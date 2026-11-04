@@ -1,0 +1,23 @@
+/** @file 00_TopicsOrder.dox
+ *  @brief Defines root topic order for Doxygen "Topics" navigation.
+ *
+ *  @details
+ *  Doxygen orders root groups mainly from the first defgroup declarations.
+ *  Keep this file as the canonical ordering source for root topics.
+ */
+
+/** @defgroup playback_and_sequencing Playback and Sequencing from MIDI Files */
+
+/** @defgroup midifileplayer_management MidiFilePlayer */
+
+/** @defgroup midistreamplayer_management MidiStreamPlayer */
+
+/** @defgroup algorithmic_music_generation Algorithmic Music Generation */
+
+/** @defgroup mptkwriter_management MPTKWriter */
+
+/** @defgroup synth_engine Synth Engine (MidiSynth) */
+
+/** @defgroup effects_processing Effects Processing */
+
+/** @defgroup audio_resources Audio Resources */

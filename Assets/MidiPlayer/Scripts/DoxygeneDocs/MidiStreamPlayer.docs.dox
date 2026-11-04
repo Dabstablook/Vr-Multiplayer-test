@@ -1,0 +1,222 @@
+/** @defgroup midistreamplayer_management MidiStreamPlayer
+ *  @brief Real-time MIDI event playback for interactive, gameplay, and procedural music systems.
+ *
+ *  @details
+ *  MidiStreamPlayer is the live-event playback MIDI message component in Maestro MPTK.
+ *  Instead of loading a complete MIDI file, your code creates and sends events at runtime.
+ *  For setup guidance and news, see https://paxstellar.fr/midi-file-player-detailed-view-2-2/
+ *
+ *  @par Typical scenarios
+ *  - interactive instruments and keyboard input,
+ *  - gameplay-driven musical responses,
+ *  - generative/procedural music systems,
+ *  - runtime control of pitch wheel, channels, and chords.
+ *
+ *  MidiStreamPlayer inherits from MidiSynth, so synthesis and channel features
+ *  from MidiSynth remain available.
+ *
+ *  Recommended reading order:
+ *  1. @ref midistreamplayer_overview
+ *  2. @ref midistreamplayer_realtime
+ *  3. @ref mptkevent_concept
+ *  4. @ref midistreamplayer_chords
+ *  5. @ref midistreamplayer_pro
+ *
+ *  @see @ref midistreamplayer_overview
+ *  @see @ref midistreamplayer_realtime
+ *  @see @ref mptkevent_concept
+ *  @see @ref midistreamplayer_chords
+ *  @see @ref midistreamplayer_pro
+ */
+
+/** @defgroup midistreamplayer_events Live MIDI Events
+ *  @ingroup midistreamplayer_management
+ *  @brief Play and stop MIDI events in real time.
+ *  @details
+ *  This chapter covers event-by-event live playback.
+ *
+ *  @par Main entry points
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StartMidiStream "MPTK_StartMidiStream()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent(MPTKEvent)"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent(List<MPTKEvent>)"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StopEvent "MPTK_StopEvent()"
+ *
+ *  @par Related concept
+ *  - @ref mptkevent_concept
+ */
+
+/** @defgroup midistreamplayer_channels MIDI Channels and Controls
+ *  @ingroup midistreamplayer_management
+ *  @brief Work with per-channel state such as instrument, volume, and pitch behavior.
+ *  @details
+ *  This chapter focuses on channel-level control during live playback.
+ *
+ *  @par Channel API
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_Channels "MPTK_Channels"
+ *  - @ref MidiPlayerTK.MPTKChannels "MPTKChannels"
+ *  - @ref MidiPlayerTK.MPTKChannel "MPTKChannel"
+ *
+ *  @par Related concept
+ *  - @ref mptkchannels_concept
+ */
+
+/** @defgroup algorithmic_music_generation Algorithmic Music Generation
+ *  @brief Build harmonic material (chords, scales, ranges, and progressions) for generative workflows.
+ *  @details
+ *  This chapter groups reusable helpers for algorithmic music generation.
+ *  It is intentionally cross-cutting and can be used with MidiStreamPlayer, MPTKWriter, or custom event pipelines.
+ *
+ *  @par Core APIs
+ *  - @ref MidiPlayerTK.MPTKScaleLib "MPTKScaleLib"
+ *  - @ref MidiPlayerTK.MPTKRangeLib "MPTKRangeLib"
+ *  - @ref MidiPlayerTK.MPTKChordBuilder "MPTKChordBuilder"
+ *  - @ref MidiPlayerTK.MPTKChordLib "MPTKChordLib"
+ *  - @ref MidiPlayerTK.MPTKChordProgressionPreset "MPTKChordProgressionPreset"
+ *  - @ref MidiPlayerTK.MPTKResolvedChordStep "MPTKResolvedChordStep"
+ *  - @ref MidiPlayerTK.MPTKChordProgressionLib "MPTKChordProgressionLib"
+ *  - @ref MidiPlayerTK.MPTKScaleName "MPTKScaleName"
+ *  - @ref MidiPlayerTK.MPTKRangeName "MPTKRangeName"
+ *  - @ref MidiPlayerTK.MPTKChordName "MPTKChordName"
+ *
+ *  @par Playback Examples
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale "MPTK_PlayChordFromScale()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib "MPTK_PlayChordFromLib()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StopChord "MPTK_StopChord()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_ScaleSelected "MPTK_ScaleSelected"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_ScaleName "MPTK_ScaleName"
+ *
+ *  @par Related Player Module
+ *  - @ref midistreamplayer_management
+ */
+
+/** @defgroup midistreamplayer_pro Maestro Pro Extensions
+ *  @ingroup midistreamplayer_management
+ *  @brief Advanced scale/chord and real-time control features available in Maestro Pro.
+ *  @details
+ *  This chapter covers live-expression features available in Maestro Pro.
+ *
+ *  @par Main APIs
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelChange "MPTK_PlayPitchWheelChange()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelSensitivity "MPTK_PlayPitchWheelSensitivity()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_ScaleSelected "MPTK_ScaleSelected"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale "MPTK_PlayChordFromScale()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib "MPTK_PlayChordFromLib()"
+ *  - @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StopChord "MPTK_StopChord()"
+ *
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelChange
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelSensitivity
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_ScaleSelected
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib
+ */
+
+/** @page midistreamplayer_overview MidiStreamPlayer Overview
+ *  @brief Choose MidiStreamPlayer when MIDI messages are created live at runtime.
+ *
+ *  @details
+ *  Use MidiStreamPlayer when your application generates MIDI messages dynamically.
+ *  It is the best fit when notes depend on user input, game state, procedural rules,
+ *  or simulation data available only at runtime.
+ *
+ *  Compared with MidiFilePlayer:
+ *  - MidiFilePlayer is optimized for complete MIDI song playback.
+ *  - MidiStreamPlayer is optimized for event-by-event live control.
+ *
+ *  @section msp_overview_quick_start Quick Start
+ *  Place the MidiStreamPlayer prefab in your scene, get a reference in script,
+ *  then send messages with @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent()".
+ *
+ *  @section msp_overview_decision_guide Decision Guide
+ *  Prefer MidiStreamPlayer when:
+ *  - timing is driven by gameplay code,
+ *  - MIDI messages are generated one by one or in small batches,
+ *  - you need immediate control over channels/controllers/notes.
+ *
+ *  Prefer MidiFilePlayer when:
+ *  - you want full-song sequencing from existing MIDI files,
+ *  - transport controls (seek, loop, timeline) are central,
+ *  - you consume events from loaded MIDI content.
+ *
+ *  @see @ref midistreamplayer_realtime
+ *  @see @ref mptkevent_concept
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_StopEvent
+ */
+
+/** @page midistreamplayer_realtime Real-Time MIDI Messages Workflow
+ *  @brief Create, send, and stop MPTKEvent instances at runtime.
+ *
+ *  @details
+ *  The core flow is:
+ *  - create an @ref MidiPlayerTK.MPTKEvent "MPTKEvent",
+ *  - set command and required message data (channel/value/velocity/duration),
+ *  - call @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent()",
+ *  - stop sustained notes with @ref MidiPlayerTK.MidiStreamPlayer.MPTK_StopEvent "MPTK_StopEvent()" when needed.
+ *
+ *  @section msp_rt_single Single-Event Flow
+ *  This is ideal for keyboard keys, game triggers, and one-shot responses.
+ *
+ *  @section msp_rt_batch Batch Flow
+ *  For grouped actions, pass a `List<MPTKEvent>` to
+ *  @ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent "MPTK_PlayEvent()".
+ *  This is useful for short phrases, layered notes, and synchronized bursts.
+ *
+ *  @section msp_rt_common_mistakes Common Mistakes
+ *  - Missing channel/velocity/value for NoteOn events.
+ *  - Using very long durations without explicit stop strategy.
+ *  - Mixing file-playback expectations (transport timeline) with live event workflows.
+ *
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayEvent
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_StopEvent
+ *  @see MidiPlayerTK.MPTKEvent
+ *  @see @ref mptkevent_concept
+ */
+
+/** @page midistreamplayer_chords Chords, Scales, and Live Harmony
+ *  @brief Build harmonic content live from scales or chord-library definitions.
+ *
+ *  @details
+ *  In Maestro Pro, MidiStreamPlayer can build chords from:
+ *  - the current scale (@ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale "MPTK_PlayChordFromScale"),
+ *  - the chord library (@ref MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib "MPTK_PlayChordFromLib").
+ *
+ *  @section msp_chord_builder Chord Configuration Model
+ *  Chords are configured with @ref MidiPlayerTK.MPTKChordBuilder "MPTKChordBuilder", including tonic, channel,
+ *  velocity, duration, arpeggio spacing, and delay.
+ *
+ *  @section msp_chord_usage Typical Usage
+ *  - gameplay-driven harmony layers,
+ *  - procedural accompaniment,
+ *  - adaptive tension/release patterns based on game state.
+ *
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_StopChord
+ *  @see MidiPlayerTK.MPTKChordBuilder
+ */
+
+/** @page midistreamplayer_pro MidiStreamPlayer Pro Extensions
+ *  @brief Extended expressive controls for advanced live playback workflows.
+ *
+ *  @details
+ *  Maestro Pro adds stream-focused capabilities such as:
+ *  - pitch wheel control with normalized values,
+ *  - configurable pitch bend sensitivity,
+ *  - runtime scale selection and scale-based chord building,
+ *  - chord-library playback helpers.
+ *
+ *  @section msp_pro_use_cases Typical Pro Use Cases
+ *  - expressive instrument control (bend + sensitivity),
+ *  - adaptive harmony systems,
+ *  - procedural generation pipelines requiring scale-aware output.
+ *
+ *  These features are designed for expressive performance controls,
+ *  adaptive game music, and advanced procedural composition workflows.
+ *
+ *  @see @ref maestro_pro_features
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelChange
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayPitchWheelSensitivity
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_ScaleSelected
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromScale
+ *  @see MidiPlayerTK.MidiStreamPlayer.MPTK_PlayChordFromLib
+ */

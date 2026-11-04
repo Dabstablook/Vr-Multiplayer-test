@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90bf2483828be14f874c24f186739ce, type: 3}
+  m_Name: RAMtest1
+  m_EditorClassIdentifier: Assembly-CSharp::SongChart
+  clip: {fileID: 8300000, guid: 6bb975ae8fd039f49aff1874c33c643e, type: 3}
+  midiName: RAMtest1
+  bpm: 110
+  chartOffset: 0
+  approachTime: 3

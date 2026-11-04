@@ -1,0 +1,38 @@
+/** @page mptkinnerloop_concept MPTKInnerLoop Workflow (Pro)
+ *  @ingroup midifileplayer_pro
+ *  @brief Configure partial-loop playback ranges in MidiFilePlayer and MidiExternalPlayer.
+ *
+ *  @details
+ *  @ref MidiPlayerTK.MPTKInnerLoop "MPTKInnerLoop" defines an inner loop range driven by ticks:
+ *  - @ref MidiPlayerTK.MPTKInnerLoop.Start "Start": initial tick when playback starts,
+ *  - @ref MidiPlayerTK.MPTKInnerLoop.End "End": loop boundary tick,
+ *  - @ref MidiPlayerTK.MPTKInnerLoop.Resume "Resume": target tick when the loop restarts.
+ *
+ *  This is useful when you want to repeat only one musical segment without restarting
+ *  the whole MIDI file.
+ *
+ *  @section il_quickstart Quick Start
+ *  1. Get @ref MidiPlayerTK.MidiFilePlayer.MPTK_InnerLoop "MPTK_InnerLoop" from your player.
+ *  2. Set @ref MidiPlayerTK.MPTKInnerLoop.Enabled "Enabled" to true.
+ *  3. Configure @ref MidiPlayerTK.MPTKInnerLoop.Start "Start", @ref MidiPlayerTK.MPTKInnerLoop.End "End", and @ref MidiPlayerTK.MPTKInnerLoop.Resume "Resume".
+ *  4. Optionally set @ref MidiPlayerTK.MPTKInnerLoop.Max "Max" (0 means infinite).
+ *
+ *  @section il_runtime Runtime Control
+ *  - @ref MidiPlayerTK.MPTKInnerLoop.Count "Count" tracks current loop iterations.
+ *  - Set @ref MidiPlayerTK.MPTKInnerLoop.Finished "Finished" to true to stop looping.
+ *  - Use @ref MidiPlayerTK.MPTKInnerLoop.Clear "Clear()" to reset inner-loop state.
+ *
+ *  @section il_callback Callback Behavior
+ *  @ref MidiPlayerTK.MPTKInnerLoop.OnEventInnerLoop "OnEventInnerLoop" is called for loop phases
+ *  (@ref MidiPlayerTK.MPTKInnerLoop.InnerLoopPhase.Start "Start",
+ *   @ref MidiPlayerTK.MPTKInnerLoop.InnerLoopPhase.Resume "Resume",
+ *   @ref MidiPlayerTK.MPTKInnerLoop.InnerLoopPhase.Exit "Exit").
+ *
+ *  Return true to keep looping, false to exit.
+ *
+ *  @warning This callback runs on the MIDI thread. Avoid Unity API calls, except Debug.Log.
+ *
+ *  @see @ref midifileplayer_pro
+ *  @see MidiPlayerTK.MidiFilePlayer.MPTK_InnerLoop
+ *  @see MidiPlayerTK.MidiExternalPlayer.MPTK_InnerLoop
+ */

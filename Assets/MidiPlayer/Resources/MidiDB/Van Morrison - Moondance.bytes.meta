@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f9f07157a6d690b4a846c536bc1cf9e0
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Van Morrison - Moondance.bytes
+  uploadId: 979214

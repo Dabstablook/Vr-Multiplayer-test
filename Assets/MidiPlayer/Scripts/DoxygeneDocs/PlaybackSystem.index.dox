@@ -1,0 +1,63 @@
+/** @page playback_system Playback System
+ *  @brief Overview of MIDI playback components in Maestro MPTK.
+ *
+ *  @details
+ *  This section introduces the components and workflows involved in MIDI playback.
+ *  The two main user-facing playback components are:
+ *  - MidiFilePlayer for complete MIDI file playback,
+ *  - MidiStreamPlayer for real-time event-driven playback.
+ *
+ *  Playback-related features typically include:
+ *  - selecting MIDI files,
+ *  - loading MIDI content,
+ *  - controlling playback,
+ *  - inspecting timing and position,
+ *  - reacting to playback events,
+ *  - sending real-time MIDI events and stopping notes,
+ *  - building chords and scale-based harmony (Maestro Pro),
+ *  - using extended Maestro Pro playback features.
+ *
+ *  @section playback_start Quick Start
+ *
+ *  @code
+ *  MidiFilePlayer player = FindObjectOfType<MidiFilePlayer>();
+ *  player.MPTK_MidiName = "Bach_Prelude";
+ *  player.MPTK_Play();
+ *  @endcode
+ *
+ *  @section playback_pages Related Pages
+ *
+ *  Read these pages in the following order:
+ *
+ *  - @subpage midifileplayer_overview
+ *  - @subpage midifileplayer_loading
+ *  - @subpage midifileplayer_playback
+ *  - @subpage midifileplayer_position
+ *  - @subpage midifileplayer_events
+ *  - @subpage midifileplayer_pro
+ *  - @subpage midistreamplayer_overview
+ *  - @subpage midistreamplayer_realtime
+ *  - @subpage midistreamplayer_chords
+ *  - @subpage midistreamplayer_pro
+ *  - @subpage mptkevent_concept
+ *  - @subpage mptkchannels_concept
+ *  - @subpage mptkwriter_concept
+ *  - @subpage maestro_pro_features
+ *
+ *  @section playback_modules Related Modules
+ *
+ *  - @ref playback_and_sequencing
+ *  - @ref midifileplayer_management
+ *  - @ref midistreamplayer_management
+ *  - @ref midi_data_model
+ *  - @ref runtime_services
+ *  - @ref pro_playback_prefabs
+ *  - @ref diagnostics_tools
+ *  - @ref synth_engine
+ *
+ *  @section playback_next Next Steps
+ *
+ *  - @ref getting_started
+ *  - @ref detailed_guides
+ *  - @ref workflows
+ */

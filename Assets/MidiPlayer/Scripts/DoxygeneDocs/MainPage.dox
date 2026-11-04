@@ -1,0 +1,38 @@
+/** @mainpage Using This Documentation
+ *  @brief How to navigate the Maestro MIDI Player Tool Kit for Unity documentation.
+ *
+ *  @details
+ *  Three complementary layers:
+ *
+ *  - <b>Hub pages</b>: conceptual guides, workflows, and entry points.
+ *  - <b>Modules/Topics</b>: structured API Reference by feature area.
+ *  - <b>Classes</b>: full class reference.
+ *   
+ *  @section main_getting_started Getting Started
+ *  - @ref playback_system
+ *  - @ref soundfont_system
+ *
+ *  @section main_detailed_guides Detailed Guides
+ *  - @ref detailed_guides "Deep content hub" (workflows, concepts, SoundFont, Pro).
+ *  - @ref workflows
+ *  - @ref core_concepts
+ *  - @ref soundfont_management_hub
+ *  - @ref maestro_pro_features
+ *
+ *  @section main_api_modules API Reference (Modules/Topics)
+ *  - @ref playback_and_sequencing
+ *  - @ref midifileplayer_management
+ *  - @ref midistreamplayer_management
+ *  - @ref algorithmic_music_generation
+ *  - @ref midi_data_model
+ *  - @ref runtime_services
+ *  - @ref pro_playback_prefabs
+ *  - @ref diagnostics_tools
+ *  - @ref mptkwriter_management
+ *  - @ref synth_engine
+ *  - @ref synth_spatial_audio
+ *  - @ref effects_processing
+ *  - @ref audio_resources
+ *  - @ref soundfont_management
+ *
+  */

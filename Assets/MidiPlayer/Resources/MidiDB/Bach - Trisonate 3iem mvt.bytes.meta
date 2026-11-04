@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b06a4ae0b4ce9ed4cb1c7ea3a81d3ced
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Bach - Trisonate 3iem mvt.bytes
+  uploadId: 979214

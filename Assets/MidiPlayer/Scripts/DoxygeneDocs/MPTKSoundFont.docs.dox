@@ -1,0 +1,263 @@
+/** @defgroup audio_resources Audio Resources
+ *  @brief Resource systems used by the audio engine.
+ *
+ *  @details
+ *  This category contains APIs related to audio resource management,
+ *  such as SoundFonts and other data required by the synthesizer at runtime.
+ *
+ *  Audio resources define the content used for playback rather than the
+ *  playback process itself. These APIs are focused on loading, caching,
+ *  organizing, and querying audio-related assets.
+ */
+
+/** @defgroup soundfont_management SoundFont Management
+ *  @ingroup audio_resources
+ *  @brief Runtime loading, caching, and exploration of SoundFonts.
+ *
+ *  @details
+ *  A SoundFont defines the samples, banks, and presets used by the synthesizer
+ *  to render MIDI events.
+ *
+ *  Maestro MPTK allows SoundFonts to be loaded dynamically while the application
+ *  is running. This makes it possible to:
+ *  - download SoundFonts from a web server,
+ *  - load SoundFonts from the local file system,
+ *  - switch between multiple SoundFonts during runtime,
+ *  - use different SoundFonts for different MIDI players.
+ *
+ *  SoundFonts can be loaded from:
+ *  - the internal MPTK SoundFont database,
+ *  - a local file using file://,
+ *  - a remote resource using http:// or https://.
+ *
+ *  When loading from external resources, the API also supports:
+ *  - download progress monitoring,
+ *  - local caching of downloaded SoundFonts,
+ *  - download without activation,
+ *  - callbacks when the SoundFont becomes available.
+ *
+ *  Once loaded, the API exposes the structure of the SoundFont,
+ *  including the list of available banks and presets for both
+ *  instruments and drum kits. These lists can be used to build
+ *  user interfaces or to prepare MIDI preset changes.
+ *
+ *  @note
+ *  These APIs manage SoundFont resources and metadata.
+ *  They do not directly change the active instrument used by a MIDI
+ *  channel during playback. To change instruments during playback,
+ *  use MidiPlayerTK.MidiSynth.MPTK_ChannelPresetChange.
+ *
+ *  @see @ref soundfont_overview
+ *  @see @ref soundfont_runtime_loading
+ *  @see @ref soundfont_banks_presets
+ *  @see @ref soundfont_best_practices
+ */
+
+/** @defgroup soundfont_loading Loading and Activation
+ *  @ingroup soundfont_management
+ *  @brief Load SoundFonts from internal resources, local files, or remote URLs.
+ */
+
+/** @defgroup soundfont_cache Download and Cache Control
+ *  @ingroup soundfont_management
+ *  @brief Control caching, reuse, and download-only behavior for external SoundFonts.
+ */
+
+/** @defgroup soundfont_status Status, Timing, and Callbacks
+ *  @ingroup soundfont_management
+ *  @brief Monitor loading progress, completion status, and timing information.
+ */
+
+/** @defgroup soundfont_state Current SoundFont State
+ *  @ingroup soundfont_management
+ *  @brief Query the active SoundFont, its name, origin, and readiness.
+ */
+
+/** @defgroup soundfont_presets Preset and Bank Access
+ *  @ingroup soundfont_management
+ *  @brief Access the banks and presets defined by the active SoundFont.
+ */
+
+/** @page soundfont_overview SoundFont Overview
+ *  @brief Core concepts for working with SoundFonts in Maestro MPTK.
+ *
+ *  @details
+ *  A SoundFont is a structured audio resource used by the synthesizer to render MIDI events.
+ *  It contains sample data together with banks and presets that define how instruments
+ *  and drum kits are organized.
+ *
+ *  In Maestro MPTK, a SoundFont can come from:
+ *  - the internal MPTK SoundFont database,
+ *  - a local file,
+ *  - a remote file downloaded at runtime.
+ *
+ *  A MidiSynth uses one active SoundFont at a time.
+ *  That SoundFont defines the bank and preset data available to the synthesizer.
+ *
+ *  @section sf_overview_concepts Main Concepts
+ *  - A bank groups presets.
+ *  - A preset defines an instrument or drum kit entry.
+ *  - A SoundFont contains the sample data used for playback.
+ *  - Loading a SoundFont makes its content available to the synthesizer.
+ *  - Changing the active MIDI instrument on a channel is a separate operation.
+ *
+ *  @section sf_overview_internal_external Internal and External SoundFonts
+ *  Internal SoundFonts are provided with MPTK resources.
+ *  External SoundFonts are loaded from the file system or from a web resource.
+ *
+ *  External SoundFonts are useful when:
+ *  - reducing build size,
+ *  - delivering optional downloadable content,
+ *  - assigning different SoundFonts to different players,
+ *  - testing or switching SoundFonts dynamically at runtime.
+ *
+ *  @section sf_overview_important_note Important Note
+ *  Loading or selecting a SoundFont does not directly change the active program
+ *  currently used by a MIDI channel during playback.
+ *  To change the channel instrument, use the MIDI channel API,
+ *  such as MidiPlayerTK.MidiSynth.MPTK_ChannelPresetChange.
+ *
+ *  @see @ref soundfont_management
+ *  @see @ref soundfont_runtime_loading
+ *  @see @ref soundfont_banks_presets
+ */
+
+/** @page soundfont_runtime_loading Runtime SoundFont Loading
+ *  @brief Load SoundFonts dynamically while the application is running.
+ *
+ *  @details
+ *  Runtime loading allows a SoundFont to be selected without packaging it
+ *  directly in the application build.
+ *
+ *  This is useful for:
+ *  - downloadable content,
+ *  - optional SoundFont packs,
+ *  - user-selected SoundFonts,
+ *  - remote distribution of SoundFont assets.
+ *
+ *  @section sf_runtime_workflow Typical Workflow
+ *  A common runtime loading workflow is:
+ *  - configure cache options,
+ *  - assign ProgressCallback,
+ *  - assign LoadedCallback,
+ *  - call Load(),
+ *  - wait until the SoundFont is ready.
+ *
+ *  @code
+ *  midiSynth.MPTK_SoundFont.ProgressCallback = progress =>
+ *  {
+ *      Debug.Log($"Loading SoundFont: {progress * 100f:F0}%");
+ *  };
+ *
+ *  midiSynth.MPTK_SoundFont.LoadedCallback = synth =>
+ *  {
+ *      Debug.Log($"SoundFont ready: {synth.MPTK_SoundFont.SoundFontName}");
+ *  };
+ *
+ *  midiSynth.MPTK_SoundFont.Load("https://example.com/MySoundFont.sf2");
+ *  @endcode
+ *
+ *  @section sf_runtime_sources Supported Sources
+ *  SoundFonts can be loaded from:
+ *  - the internal MPTK SoundFont database,
+ *  - local files using file://,
+ *  - remote files using http:// or https://.
+ *
+ *  @section sf_runtime_completion Completion Model
+ *  Load() starts the loading process.
+ *  Depending on the source, the operation may complete asynchronously.
+ *  Use LoadedCallback to know when the SoundFont is ready.
+ *  Use StatusSoundFont to inspect the current loading result.
+ *
+ *  @see MidiPlayerTK.MPTKSoundFont.Load
+ *  @see MidiPlayerTK.MPTKSoundFont.LoadedCallback
+ *  @see MidiPlayerTK.MPTKSoundFont.ProgressCallback
+ *  @see MidiPlayerTK.MPTKSoundFont.StatusSoundFont
+ */
+
+/** @page soundfont_banks_presets Working with Banks and Presets
+ *  @brief Access and select banks and presets exposed by the active SoundFont.
+ *
+ *  @details
+ *  Once a SoundFont is loaded, Maestro MPTK exposes its available banks and presets.
+ *
+ *  These lists can be used to:
+ *  - populate user interface selectors,
+ *  - inspect the organization of a SoundFont,
+ *  - choose a default instrument bank,
+ *  - choose a default drum bank.
+ *
+ *  @section sf_bp_bank_lists Bank Lists
+ *  Available banks are exposed through:
+ *  - BanksName
+ *  - BanksNumber
+ *  - ListBank
+ *
+ *  The preferred modern access pattern is to use BanksName and BanksNumber together,
+ *  because missing banks are removed and the indices remain aligned.
+ *
+ *  @section sf_bp_preset_lists Preset Lists
+ *  Available presets are exposed through:
+ *  - PresetsName
+ *  - PresetsNumber
+ *  - PresetsDrumName
+ *  - PresetsDrumNumber
+ *  - ListPreset
+ *  - ListPresetDrum
+ *
+ *  The preferred modern access pattern is to use the string and number lists
+ *  rather than the legacy MPTKListItem collections.
+ *
+ *  @section sf_bp_selecting_default_banks Selecting Default Banks
+ *  The methods SelectBankInstrument() and SelectBankDrum() update the default bank
+ *  used to build the preset lists.
+ *
+ *  This updates the SoundFont browsing state, but does not directly change
+ *  the active instrument already used by MIDI playback.
+ *
+ *  @see MidiPlayerTK.MPTKSoundFont.SelectBankInstrument
+ *  @see MidiPlayerTK.MPTKSoundFont.SelectBankDrum
+ *  @see MidiPlayerTK.MPTKSoundFont.BanksName
+ *  @see MidiPlayerTK.MPTKSoundFont.PresetsName
+ *  @see MidiPlayerTK.MidiSynth.MPTK_ChannelPresetChange
+ */
+
+/** @page soundfont_best_practices Best Practices for External SoundFonts
+ *  @brief Recommendations for using external SoundFonts efficiently and safely.
+ *
+ *  @details
+ *  External SoundFonts provide flexibility, but they also introduce loading time,
+ *  network dependency, and cache management concerns.
+ *
+ *  @section sf_best_cache Cache Strategy
+ *  For frequently reused SoundFonts:
+ *  - enable SaveToCache,
+ *  - keep LoadFromCache enabled,
+ *  - avoid unnecessary repeated downloads.
+ *
+ *  For test scenarios:
+ *  - disable LoadFromCache to force a fresh download.
+ *
+ *  @section sf_best_callbacks Callbacks
+ *  Always assign LoadedCallback when using asynchronous loading.
+ *
+ *  Use ProgressCallback to:
+ *  - display loading progress,
+ *  - update a loading indicator,
+ *  - detect slow network conditions.
+ *
+ *  @section sf_best_ui User Experience
+ *  When loading from a remote source:
+ *  - show a progress indicator,
+ *  - avoid assuming immediate availability,
+ *  - defer preset browsing until loading is complete.
+ *
+ *  @section sf_best_activation Activation
+ *  DownloadOnly can be used to retrieve a SoundFont without immediately activating it.
+ *  This is useful when preparing assets ahead of time for later use.
+ *
+ *  @see MidiPlayerTK.MPTKSoundFont.LoadFromCache
+ *  @see MidiPlayerTK.MPTKSoundFont.SaveToCache
+ *  @see MidiPlayerTK.MPTKSoundFont.DownloadOnly
+ *  @see MidiPlayerTK.MPTKSoundFont.Load
+ */

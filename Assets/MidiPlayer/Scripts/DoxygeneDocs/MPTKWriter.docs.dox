@@ -1,0 +1,212 @@
+/** @defgroup mptkwriter_management MPTKWriter
+ *  @brief Scripted MIDI authoring, editing, and export APIs (Maestro Pro).
+ *
+ *  @details
+ *  This module covers the @ref MidiPlayerTK.MPTKWriter "MPTKWriter" class and its
+ *  workflow-oriented API.
+ *
+ *  @par Includes
+ *  - initialization and import
+ *  - tempo/time conversion
+ *  - sequence state and loading
+ *  - event creation and maintenance
+ *  - export and diagnostics
+ */
+
+/** @defgroup mptkwriter_init_import Initialization and Import
+ *  @ingroup mptkwriter_management
+ *  @brief Constructor, reset, and event-list import/merge APIs.
+ *  @details
+ *  Use this chapter to initialize a writer and merge event lists.
+ *
+ *  @par Main entry points
+ *  - @ref MidiPlayerTK.MPTKWriter.MPTKWriter "MPTKWriter()"
+ *  - @ref MidiPlayerTK.MPTKWriter.Clear "Clear()"
+ *  - @ref MidiPlayerTK.MPTKWriter.ImportFromEventsList "ImportFromEventsList()"
+ */
+
+/** @defgroup mptkwriter_tempo Tempo and Time Conversion
+ *  @ingroup mptkwriter_management
+ *  @brief Tempo state and tick/millisecond conversion helpers.
+ *  @details
+ *  Use this chapter to inspect tempo state and convert between ticks and milliseconds.
+ *
+ *  @par Core timing members
+ *  - @ref MidiPlayerTK.MPTKWriter.DeltaTicksPerQuarterNote "DeltaTicksPerQuarterNote"
+ *  - @ref MidiPlayerTK.MPTKWriter.MicrosecondsPerQuaterNote "MicrosecondsPerQuaterNote"
+ *  - @ref MidiPlayerTK.MPTKWriter.CurrentTempo "CurrentTempo"
+ *  - @ref MidiPlayerTK.MPTKWriter.MPTK_TempoMap "MPTK_TempoMap"
+ *  - @ref MidiPlayerTK.MPTKWriter.MPTK_SignMap "MPTK_SignMap"
+ *  - @ref MidiPlayerTK.MPTKWriter.PulseLenght "PulseLenght"
+ *  - @ref MidiPlayerTK.MPTKWriter.ConvertTickToMilli "ConvertTickToMilli()"
+ *  - @ref MidiPlayerTK.MPTKWriter.ConvertMilliToTick "ConvertMilliToTick()"
+ *  - @ref MidiPlayerTK.MPTKWriter.DurationTickToMilli "DurationTickToMilli()"
+ *  - @ref MidiPlayerTK.MPTKWriter.DurationMilliToTick "DurationMilliToTick()"
+ */
+
+/** @defgroup mptkwriter_state Sequence State and Event Collections
+ *  @ingroup mptkwriter_management
+ *  @brief Core sequence metadata and event-list accessors.
+ *  @details
+ *  Use this chapter to inspect global sequence metadata and the current event collection.
+ *
+ *  @par Sequence state
+ *  - @ref MidiPlayerTK.MPTKWriter.TrackCount "TrackCount"
+ *  - @ref MidiPlayerTK.MPTKWriter.ChannelCount "ChannelCount"
+ *  - @ref MidiPlayerTK.MPTKWriter.MidiFileType "MidiFileType"
+ *  - @ref MidiPlayerTK.MPTKWriter.MidiName "MidiName"
+ *  - @ref MidiPlayerTK.MPTKWriter.MPTK_MidiEvents "MPTK_MidiEvents"
+ *  - @ref MidiPlayerTK.MPTKWriter.MPTK_LastEvent "MPTK_LastEvent"
+ *  - @ref MidiPlayerTK.MPTKWriter.TickLast "TickLast"
+ *  - @ref MidiPlayerTK.MPTKWriter.CountEvent "CountEvent"
+ */
+
+/** @defgroup mptkwriter_loading Loading Existing MIDI Content
+ *  @ingroup mptkwriter_management
+ *  @brief Load MIDI data into the writer from file system or MidiDB.
+ *  @details
+ *  Use this chapter to replace in-memory data with loaded MIDI content.
+ *
+ *  @par Loading APIs
+ *  - @ref MidiPlayerTK.MPTKWriter.LoadFromFile "LoadFromFile()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LoadFromMidiDB "LoadFromMidiDB()"
+ */
+
+/** @defgroup mptkwriter_stats Track Statistics
+ *  @ingroup mptkwriter_management
+ *  @brief Build per-track counters from current event content.
+ *  @details
+ *  Use this chapter to build track-level counters for analysis and diagnostics.
+ *
+ *  @par Statistics API
+ *  - @ref MidiPlayerTK.MPTKWriter.CreateTracksStat "CreateTracksStat()"
+ */
+
+/** @defgroup mptkwriter_creation MIDI Event Creation API
+ *  @ingroup mptkwriter_management
+ *  @brief Author notes, controls, tempo/signature, and meta events.
+ *  @details
+ *  Use this chapter to generate musical, controller, and meta events.
+ *
+ *  @par Main authoring methods
+ *  - @ref MidiPlayerTK.MPTKWriter.AddRawEvent "AddRawEvent()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddNote "AddNote()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddSilence "AddSilence()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddOff "AddOff()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddChordFromScale "AddChordFromScale()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddChordFromLib "AddChordFromLib()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddChangePreset "AddChangePreset()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddChannelAfterTouch "AddChannelAfterTouch()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddControlChange "AddControlChange()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddPitchWheelChange "AddPitchWheelChange()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddBPMChange "AddBPMChange()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddTempoChange "AddTempoChange()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddTimeSignature "AddTimeSignature()"
+ *  - @ref MidiPlayerTK.MPTKWriter.AddText "AddText()"
+ *  - @ref MidiPlayerTK.MPTKWriter.ExtendedText "ExtendedText"
+ */
+
+/** @defgroup mptkwriter_maintenance Event List Maintenance and Timing Recalculation
+ *  @ingroup mptkwriter_management
+ *  @brief Delete, sort, and recompute timing data for event lists.
+ *  @details
+ *  Use this chapter after edits to keep event ordering and timing data consistent.
+ *
+ *  @par Maintenance methods
+ *  - @ref MidiPlayerTK.MPTKWriter.DeleteChannel "DeleteChannel()"
+ *  - @ref MidiPlayerTK.MPTKWriter.DeleteTrack "DeleteTrack()"
+ *  - @ref MidiPlayerTK.MPTKWriter.StableSortEvents "StableSortEvents()"
+ *  - @ref MidiPlayerTK.MPTKWriter.CalculateTiming "CalculateTiming()"
+ */
+
+/** @defgroup mptkwriter_export Export and Diagnostics
+ *  @ingroup mptkwriter_management
+ *  @brief Export to MIDI outputs and inspect writer/raw event state.
+ *  @details
+ *  Use this chapter to export generated MIDI and validate outputs.
+ *
+ *  @par Export and diagnostics
+ *  - @ref MidiPlayerTK.MPTKWriter.WriteToFile "WriteToFile()"
+ *  - @ref MidiPlayerTK.MPTKWriter.WriteToMidiDB "WriteToMidiDB()"
+ *  - @ref MidiPlayerTK.MPTKWriter.BuildNAudioMidi "BuildNAudioMidi()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogWriter "LogWriter()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogTempoMap "LogTempoMap()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogSignMap "LogSignMap()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogTrackStat "LogTrackStat()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogRaw "LogRaw()"
+ */
+
+/** @page mptkwriter_concept MPTKWriter Authoring Workflow (Pro)
+ *  @brief Build, import, edit, and export MIDI event streams from script.
+ *
+ *  @details
+ *  @ref MidiPlayerTK.MPTKWriter "MPTKWriter" is the script-driven MIDI authoring API in Maestro MPTK.
+ *  It lets you create and manipulate MIDI content as @ref MidiPlayerTK.MPTKEvent "MPTKEvent" lists,
+ *  then export to MIDI files or reuse the generated content in playback workflows.
+ *
+ *  @note
+ *  MPTKWriter is available in <b>Maestro Pro only</b>.
+ *
+ *  @section mptkwriter_core_model Core Model
+ *
+ *  MPTKWriter manages:
+ *  - sequence header values (MIDI file type, DTPQN, tempo),
+ *  - event list storage (@ref MidiPlayerTK.MPTKWriter.MPTK_MidiEvents "MPTK_MidiEvents"),
+ *  - timing maps (tempo and time-signature),
+ *  - conversion between ticks and milliseconds,
+ *  - export to NAudio MIDI objects and file outputs.
+ *
+ *  @section mptkwriter_typical Typical Workflow
+ *
+ *  Common workflow:
+ *  - create a writer with desired defaults,
+ *  - add events (notes, controls, tempo, text, signatures),
+ *  - call @ref MidiPlayerTK.MPTKWriter.StableSortEvents "StableSortEvents()",
+ *  - call @ref MidiPlayerTK.MPTKWriter.CalculateTiming "CalculateTiming()",
+ *  - export with @ref MidiPlayerTK.MPTKWriter.WriteToFile "WriteToFile()" or @ref MidiPlayerTK.MPTKWriter.WriteToMidiDB "WriteToMidiDB()".
+ *
+ *  @section mptkwriter_authoring Event Authoring API
+ *
+ *  MPTKWriter provides high-level creation helpers:
+ *  - notes and note lifecycle (@ref MidiPlayerTK.MPTKWriter.AddNote "AddNote()", @ref MidiPlayerTK.MPTKWriter.AddOff "AddOff()"),
+ *  - chords from scale/library,
+ *  - controller/program/pitch-wheel events,
+ *  - tempo and time-signature meta events,
+ *  - text/meta insertion.
+ *
+ *  @section mptkwriter_import Loading and Merging Content
+ *
+ *  You can:
+ *  - load MIDI from OS file paths,
+ *  - load from MidiDB,
+ *  - import event lists and merge them at specific positions.
+ *
+ *  During imports, DTPQN conversion can be applied automatically.
+ *  Re-run timing calculation after major edits/imports.
+ *
+ *  @section mptkwriter_timing Timing Best Practices
+ *
+ *  Recommended:
+ *  - use ticks for precise musical placement,
+ *  - use conversion helpers when you must interface with milliseconds,
+ *  - recalculate timing maps after changing tempo/signature or after large imports.
+ *
+ *  @section mptkwriter_export Export and Validation
+ *
+ *  Export options:
+ *  - @ref MidiPlayerTK.MPTKWriter.BuildNAudioMidi "BuildNAudioMidi()"
+ *  - @ref MidiPlayerTK.MPTKWriter.WriteToFile "WriteToFile()"
+ *  - @ref MidiPlayerTK.MPTKWriter.WriteToMidiDB "WriteToMidiDB()" (editor mode)
+ *
+ *  Validation/logging helpers:
+ *  - @ref MidiPlayerTK.MPTKWriter.LogWriter "LogWriter()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogRaw "LogRaw()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogTempoMap "LogTempoMap()"
+ *  - @ref MidiPlayerTK.MPTKWriter.LogSignMap "LogSignMap()"
+ *
+ *  @see @ref maestro_pro_features
+ *  @see @ref workflows
+ *  @see @ref mptkevent_concept
+ *  @see @ref midifileplayer_pro
+ *  @see MidiPlayerTK.MPTKWriter
+ */

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 36f4d9a933a366840ad53c35b72870e7
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Bach - Little fugue G minor.bytes
+  uploadId: 979214

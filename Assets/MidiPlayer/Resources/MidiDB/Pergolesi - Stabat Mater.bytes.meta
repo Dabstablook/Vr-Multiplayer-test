@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 68ed13d4fdb9dc142a099dac020fa6b3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Pergolesi - Stabat Mater.bytes
+  uploadId: 979214

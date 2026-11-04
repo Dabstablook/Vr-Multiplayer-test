@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e0f8d435bd999254a80ee5b327aaf207
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/All Night Long.bytes
+  uploadId: 979214

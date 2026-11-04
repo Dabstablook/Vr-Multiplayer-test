@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: be433dd686ec1534dbfcd2c6e84a5b34
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Resources/MidiDB/Mozart - Sonate 11 Alla Turca.bytes
+  uploadId: 979214

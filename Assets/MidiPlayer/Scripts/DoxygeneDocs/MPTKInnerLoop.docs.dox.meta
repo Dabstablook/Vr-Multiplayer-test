@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c797a681c7088c3429432b1e2254d8d2
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Scripts/DoxygeneDocs/MPTKInnerLoop.docs.dox
+  uploadId: 979214

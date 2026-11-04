@@ -1,0 +1,189 @@
+/** @page getting_started Getting Started
+ *  @brief Entry points for understanding the overall Maestro MPTK architecture.
+ *
+ *  @details
+ *  Start here if you want a high-level view of how playback and SoundFont systems fit together.
+ *  These pages are intended as orientation hubs before choosing a more specific workflow.
+ *
+ *  @section getting_started_pages Main Entry Pages
+ *
+ *  - @subpage playback_system
+ *  - @subpage soundfont_system
+ *
+ *  @section getting_started_next_step Next Step
+ *
+ *  After reading these pages, continue with:
+ *  - @ref detailed_guides
+ */
+
+/** @page workflows Workflows
+ *  @brief Workflow-oriented guides for playback, live events, and MIDI authoring.
+ *
+ *  @details
+ *  These pages are organized around practical developer tasks rather than around class names alone.
+ *  Choose the workflow that matches how your application creates, loads, or plays MIDI data.
+ *
+ *  @section workflows_file_playback MIDI File Playback Workflow
+ *
+ *  - @subpage midifileplayer_overview
+ *  - @subpage midifileplayer_loading
+ *  - @subpage midifileplayer_playback
+ *  - @subpage midifileplayer_position
+ *  - @subpage midifileplayer_events
+ *  - @subpage mptkinnerloop_concept
+ *  - @subpage midifileplayer_pro
+ *
+ *  @section workflows_live_playback Real-Time Playback Workflow
+ *
+ *  - @subpage midistreamplayer_overview
+ *  - @subpage midistreamplayer_realtime
+ *  - @subpage midistreamplayer_chords
+ *  - @subpage midistreamplayer_pro
+ *
+ *  @section workflows_spatial Add 3D Orientation and Attenuation
+ *
+ *  - @subpage mptk_spatial_audio_workflow
+ *
+ *  @section workflows_authoring MIDI Authoring Workflow
+ *
+ *  - @subpage mptkwriter_concept
+ *
+ *  @section workflows_effects Add Sound Effects
+ *
+ *  - @subpage sound_effects_workflow
+ *
+ *  @section workflows_related Related Concept Pages
+ *
+ *  - @subpage mptkevent_concept
+ *  - @subpage mptkchannels_concept
+ *  - @ref algorithmic_music_generation
+ */
+
+/** @page core_concepts Core Concepts
+ *  @brief Cross-cutting concepts shared by multiple playback and authoring workflows.
+ *
+ *  @details
+ *  These pages explain the core data structures and channel models used across Maestro MPTK.
+ *  Read them when you want to understand the data model behind the higher-level workflows.
+ *
+ *  @section core_concepts_pages Main Concept Pages
+ *
+ *  - @subpage mptkevent_concept
+ *  - @subpage mptkchannels_concept
+ *  - @subpage mptk_synth_overview
+ */
+
+/** @page detailed_guides Detailed Guides
+ *  @brief Navigate the in-depth guides and advanced workflows.
+ *
+ *  @details
+ *  Use this hub after the quick Getting Started orientation. It gathers the main detailed
+ *  areas of the toolkit so you can jump straight to the guides you need.
+ *
+ *  @section deep_dive_workflows Workflows
+ *  - @subpage workflows
+ *
+ *  @section deep_dive_concepts Core Concepts
+ *  - @subpage core_concepts
+ *
+ *  @section deep_dive_soundfont SoundFont Management
+ *  - @subpage soundfont_management_hub
+ *  - @subpage sound_effects_workflow
+ *
+ *  @section deep_dive_pro Maestro Pro
+ *  - @subpage maestro_pro_features
+ *  - @subpage mptk_spatial_audio_workflow
+ *
+ *  @section deep_dive_api Related API Modules
+ *  - @ref playback_and_sequencing
+ *  - @ref midifileplayer_management
+ *  - @ref midistreamplayer_management
+ *  - @ref algorithmic_music_generation
+ *  - @ref midi_data_model
+ *  - @ref runtime_services
+ *  - @ref pro_playback_prefabs
+ *  - @ref diagnostics_tools
+ *  - @ref mptkwriter_management
+ *  - @ref synth_engine
+ *  - @ref synth_spatial_audio
+ *  - @ref soundfont_management
+ *  - @ref effects_processing
+ */
+
+/** @page soundfont_management_hub SoundFont Management
+ *  @brief Guides for understanding, loading, and using SoundFonts in Maestro MPTK.
+ *
+ *  @details
+ *  This section groups the pages related to SoundFont selection, runtime loading,
+ *  preset browsing, and best practices for external SoundFonts.
+ *
+ *  @section soundfont_hub_pages Main Pages
+ *
+ *  - @subpage soundfont_system
+ *  - @subpage soundfont_overview
+ *  - @subpage soundfont_runtime_loading
+ *  - @subpage soundfont_banks_presets
+ *  - @subpage soundfont_best_practices
+ *  - @subpage sound_effects_workflow
+ *
+ *  @section soundfont_hub_related Related References
+ *  - @ref soundfont_management
+ *  - @ref audio_resources
+ *  - @ref mptk_synth_overview
+ *  - @ref effects_processing
+ */
+
+/** @page maestro_pro_features Maestro Pro Features
+ *  @brief Consolidated page for Pro-only workflows and advanced extensions.
+ *
+ *  @details
+ *  Maestro Pro extends the standard playback workflows with additional runtime control,
+ *  advanced loading options, harmonic tools, and script-based MIDI authoring.
+ *
+ *  This page centralizes all Pro feature families, including MidiSynth-specific
+ *  extensions, so Pro capabilities are discoverable from a single chapter.
+ *
+ *  @section pro_workflows Pro Workflow Pages
+ *
+ *  - @subpage midifileplayer_pro
+ *  - @subpage midistreamplayer_pro
+ *  - @subpage mptkinnerloop_concept
+ *  - @subpage mptk_spatial_audio_workflow
+ *  - @subpage mptkwriter_concept
+ *
+ *  @section pro_midisynth MidiSynth Pro Extensions
+ *
+ *  @subsection pro_callbacks Real-Time Callbacks
+ *  - @ref MidiPlayerTK.MidiSynth.OnAudioFrameStart : audio-thread callback per frame (avoid Unity API).
+ *  - @ref MidiPlayerTK.MidiSynth.OnMidiEvent : preprocess/transform MIDI events before playback.
+ *  - @ref MidiPlayerTK.MidiSynth.OnBeatEvent : beat-level timing hook (time, tick, measure, beat).
+ *
+ *  @subsection pro_voice Voice Control Utilities
+ *  - @ref MidiPlayerTK.MidiSynth.MPTK_PauseVoices and @ref MidiPlayerTK.MidiSynth.MPTK_ResumeVoices for smooth global fade-out/fade-in.
+ *  - Direct event APIs: @ref MidiPlayerTK.MidiSynth.MPTK_PlayDirectEvent , @ref MidiPlayerTK.MidiSynth.MPTK_StopDirectEvent .
+ *
+ *  @subsection pro_spatial MIDI Spatial Mapper
+ *  - Routing modes: @ref MidiPlayerTK.MidiSynth.ModeSpatializer.Channel , @ref MidiPlayerTK.MidiSynth.ModeSpatializer.Track .
+ *  - Master/Slave coordination: @ref MidiPlayerTK.MidiSynth.MPTK_IsSpatialSynthMaster , @ref MidiPlayerTK.MidiSynth.MPTK_SpatialSynthEnabled .
+ *  - Track metadata helpers: @ref MidiPlayerTK.MidiSynth.MPTK_InstrumentPlayed , @ref MidiPlayerTK.MidiSynth.MPTK_InstrumentNum , @ref MidiPlayerTK.MidiSynth.MPTK_TrackName .
+ *
+ *  @subsection pro_effects Unity Effect Integration
+ *  - Global Unity effects via @ref MidiPlayerTK.MidiSynth.MPTK_EffectUnity (Reverb, Chorus).
+ *  - Configure in inspector (Synth Parameters / Unity Effect) or by script.
+ *
+ *  @subsection pro_when When to Use MidiSynth Pro Extensions
+ *  - Tight timing/generative music: @ref MidiPlayerTK.MidiSynth.OnAudioFrameStart .
+ *  - Live filtering/transposition: @ref MidiPlayerTK.MidiSynth.OnMidiEvent .
+ *  - Immersive 3D audio: enable MidiSpatializer routing with @ref MidiPlayerTK.MidiSynth.MPTK_ModeSpatializer .
+ *
+ *  @section pro_notes Notes
+ *
+ *  - MPTKWriter is a <b>Maestro Pro-only</b> workflow dedicated to scripted MIDI authoring.
+ *  - Some Pro features extend existing players, while others provide entirely new workflows.
+ *
+ *  @section pro_related_api Related API Modules
+ *  - @ref midifileplayer_pro
+ *  - @ref midistreamplayer_pro
+ *  - @ref mptkwriter_management
+ *  - @ref synth_engine
+ */

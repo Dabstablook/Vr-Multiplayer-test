@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ebcb1ea7f7c28954b8b9006fb5b725a7
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 107994
+  packageName: Maestro - Midi Player Tool Kit - Free
+  packageVersion: 2.21.0
+  assetPath: Assets/MidiPlayer/Scripts/DoxygeneDocs/MidiFilePlayer.docs.dox
+  uploadId: 979214

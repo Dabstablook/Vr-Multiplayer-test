@@ -1,0 +1,100 @@
+/** @defgroup midi_data_model MIDI Data Model
+ *  @ingroup playback_and_sequencing
+ *  @brief Core runtime MIDI structures used across playback and authoring APIs.
+ *
+ *  @details
+ *  This module groups the canonical data structures used by Maestro MPTK:
+ *  event objects, event enums, channel state, and tempo/signature analysis types.
+ *  These concepts are shared by MidiFilePlayer, MidiStreamPlayer, MidiExternalPlayer,
+ *  MidiListPlayer, MidiInReader, and MPTKWriter workflows.
+ */
+
+/** @defgroup midi_event_object MPTKEvent Object
+ *  @ingroup midi_data_model
+ *  @brief Runtime MIDI event object and per-event extensions.
+ */
+
+/** @defgroup midi_event_enums MIDI Event Enums
+ *  @ingroup midi_data_model
+ *  @brief Command, controller, meta, lifecycle, and loading-status enums.
+ */
+
+/** @defgroup midi_channel_state MIDI Channel State
+ *  @ingroup midi_data_model
+ *  @brief Channel collection and per-channel playback state.
+ */
+
+/** @defgroup midi_tempo_signature Tempo and Signature Analysis
+ *  @ingroup midi_data_model
+ *  @brief Tempo map and meter/signature structures derived from MIDI content.
+ */
+
+/** @defgroup runtime_services Runtime Services
+ *  @ingroup playback_and_sequencing
+ *  @brief Global runtime services for configuration, loading, and catalog lookup.
+ */
+
+/** @defgroup runtime_global_config Global Runtime Configuration
+ *  @ingroup runtime_services
+ *  @brief Global singleton settings and runtime resource paths.
+ */
+
+/** @defgroup runtime_midi_loading MIDI Loading Services
+ *  @ingroup runtime_services
+ *  @brief MIDI loading/parsing services and scan helpers.
+ */
+
+/** @defgroup runtime_catalogs Runtime Catalogs and Metadata
+ *  @ingroup runtime_services
+ *  @brief Runtime lists and metadata structures for MIDI and SoundFont assets.
+ */
+
+/** @defgroup pro_playback_prefabs Pro Playback Prefabs
+ *  @ingroup playback_and_sequencing
+ *  @brief Maestro Pro prefabs focused on external, list-based, input, and spatial playback.
+ */
+
+/** @defgroup pro_external_playback External MIDI Playback
+ *  @ingroup pro_playback_prefabs
+ *  @brief Play MIDI content from web URLs and local files.
+ */
+
+/** @defgroup pro_playlist_playback Playlist and Crossfade Playback
+ *  @ingroup pro_playback_prefabs
+ *  @brief Playlist scheduling with overlap/crossfade between MIDI items.
+ */
+
+/** @defgroup pro_midi_input MIDI Input and Keyboard Integration
+ *  @ingroup pro_playback_prefabs
+ *  @brief MIDI input from external devices and native keyboard plugin bridge.
+ */
+
+/** @defgroup pro_spatial_playback Spatial Playback Prefab
+ *  @ingroup pro_playback_prefabs
+ *  @brief Spatialized playback orchestration by channel or track.
+ */
+
+/** @defgroup diagnostics_tools Diagnostics and Tools
+ *  @ingroup playback_and_sequencing
+ *  @brief Utility, diagnostics, and internal support types used by Maestro MPTK runtime systems.
+ */
+
+/** @defgroup runtime_debug_tools Runtime Debug and Monitoring
+ *  @ingroup diagnostics_tools
+ *  @brief Runtime helper components for diagnostics, statistics, and editor-side preview behavior.
+ */
+
+/** @defgroup unity_event_bridges Unity Event Bridges
+ *  @ingroup diagnostics_tools
+ *  @brief UnityEvent wrapper types and helper extensions used by playback components.
+ */
+
+/** @defgroup experimental_analysis_tools Experimental Analysis Tools
+ *  @ingroup diagnostics_tools
+ *  @brief Experimental MIDI analysis/search utilities that may evolve across versions.
+ */
+
+/** @defgroup legacy_internal_types Legacy and Internal Types
+ *  @ingroup diagnostics_tools
+ *  @brief Deprecated or internal support types kept for compatibility and implementation needs.
+ */
